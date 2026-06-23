@@ -4,7 +4,6 @@ import { getSession } from "@/lib/session"
 import { getMyNotifications } from "@/app/actions/notifications"
 import { SiteHeader } from "@/components/site-header"
 import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 
 export const dynamic = "force-dynamic"
 
@@ -17,12 +16,10 @@ export default async function NotificationsPage() {
       <SiteHeader user={user} />
       <main className="mx-auto w-full max-w-4xl px-4 py-12">
         <div className="mb-6">
-          <Button asChild variant="ghost" size="sm" className="mb-4">
-            <Link href="/dashboard">
-              <ArrowLeft className="size-4" />
-              Dashboard
-            </Link>
-          </Button>
+          <a href="/dashboard" className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1 mb-4">
+            <ArrowLeft className="size-4" />
+            Dashboard
+          </a>
           <h1 className="text-3xl font-semibold tracking-tight text-foreground">
             Notifications
           </h1>

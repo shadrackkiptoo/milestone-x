@@ -2,10 +2,8 @@ import Link from "next/link"
 import { ArrowLeft, Banknote, FileText, TrendingUp } from "lucide-react"
 import { getSession } from "@/lib/session"
 import { getMyProjects } from "@/app/actions/projects"
-import { getProjectMilestones } from "@/lib/queries"
 import { SiteHeader } from "@/components/site-header"
 import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { formatCurrency } from "@/lib/roles"
 import { StatusBadge } from "@/components/status-badge"
 
@@ -20,12 +18,10 @@ export default async function AuditorDashboard() {
       <SiteHeader user={user} />
       <main className="mx-auto w-full max-w-6xl px-4 py-12">
         <div className="mb-6">
-          <Button asChild variant="ghost" size="sm" className="mb-4">
-            <Link href="/dashboard">
-              <ArrowLeft className="size-4" />
-              Dashboard
-            </Link>
-          </Button>
+          <a href="/dashboard" className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1 mb-4">
+            <ArrowLeft className="size-4" />
+            Dashboard
+          </a>
           <h1 className="text-3xl font-semibold tracking-tight text-foreground">
             Auditor view
           </h1>
@@ -35,16 +31,16 @@ export default async function AuditorDashboard() {
         </div>
 
         <div className="grid gap-6">
-          {projects.length ? (
+          {projects.length > 0 ? (
             projects.map((p) => (
               <Card key={p.id} className="p-6">
                 <div className="flex items-center justify-between">
-                  <Link
+                  <a
                     href={`/projects/${p.id}`}
                     className="font-semibold text-lg text-foreground hover:underline"
                   >
                     {p.title}
-                  </Link>
+                  </a>
                   <StatusBadge status={p.status} />
                 </div>
                 <div className="mt-4 grid gap-3 sm:grid-cols-3 text-sm">
