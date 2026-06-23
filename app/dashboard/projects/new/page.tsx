@@ -3,7 +3,6 @@ import { ArrowLeft } from "lucide-react"
 import { getSession } from "@/lib/session"
 import { createProject } from "@/app/actions/projects"
 import { SiteHeader } from "@/components/site-header"
-import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -19,12 +18,12 @@ export default async function NewProjectPage() {
     <div className="flex min-h-svh flex-col bg-background">
       <SiteHeader user={user} />
       <main className="mx-auto w-full max-w-3xl px-4 py-12">
-        <Button asChild variant="ghost" size="sm" className="mb-4">
-          <Link href="/dashboard/projects">
+        <div className="mb-4">
+          <a href="/dashboard/projects" className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1">
             <ArrowLeft className="size-4" />
             My projects
-          </Link>
-        </Button>
+          </a>
+        </div>
 
         <h1 className="text-3xl font-semibold tracking-tight text-foreground mb-2">
           Submit a new project
@@ -103,9 +102,12 @@ export default async function NewProjectPage() {
             </div>
           </Card>
 
-          <Button type="submit" className="w-full sm:w-auto">
+          <button
+            type="submit"
+            className="rounded-lg bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+          >
             Submit for review
-          </Button>
+          </button>
         </form>
       </main>
     </div>

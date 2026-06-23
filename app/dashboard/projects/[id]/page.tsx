@@ -5,7 +5,6 @@ import { getMyProjects } from "@/app/actions/projects"
 import { getProjectById, getProjectMilestones } from "@/lib/queries"
 import { SiteHeader } from "@/components/site-header"
 import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { formatCurrency } from "@/lib/roles"
 import { StatusBadge } from "@/components/status-badge"
 import { submitMilestoneEvidence } from "@/app/actions/milestones"
@@ -60,12 +59,10 @@ export default async function ProjectManagePage({
       <SiteHeader user={user} />
       <main className="mx-auto w-full max-w-6xl px-4 py-12">
         <div className="mb-6">
-          <Button asChild variant="ghost" size="sm" className="mb-4">
-            <Link href="/dashboard/projects">
-              <ArrowLeft className="size-4" />
-              My projects
-            </Link>
-          </Button>
+          <a href="/dashboard/projects" className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1 mb-4">
+            <ArrowLeft className="size-4" />
+            My projects
+          </a>
           <h1 className="text-3xl font-semibold tracking-tight text-foreground">
             {project.title}
           </h1>
@@ -114,9 +111,12 @@ export default async function ProjectManagePage({
                           placeholder="https://drive.google.com/..."
                         />
                       </div>
-                      <Button type="submit" size="sm">
+                      <button
+                        type="submit"
+                        className="inline-flex items-center justify-center rounded-lg bg-primary px-3 py-1 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+                      >
                         Submit for verification
-                      </Button>
+                      </button>
                     </form>
                   )}
                 </Card>
