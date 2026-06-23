@@ -1,9 +1,7 @@
 import { getSession } from "@/lib/session"
 import { getMyDonations } from "@/app/actions/donations"
-import { getMyNotifications, markAllNotificationsRead } from "@/app/actions/notifications"
 import { SiteHeader } from "@/components/site-header"
 import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { formatCurrency } from "@/lib/roles"
@@ -30,12 +28,7 @@ export default async function DashboardPage() {
     )
   }
 
-  const [donations, notifications] = await Promise.all([
-    getMyDonations(),
-    getMyNotifications(),
-  ])
-
-  const unreadCount = notifications.filter((n) => !n.read).length
+  const donations = await getMyDonations()
 
   const roleCards = [
     {
@@ -123,9 +116,9 @@ export default async function DashboardPage() {
           ) : (
             <Card className="p-6 text-center">
               <p className="text-muted-foreground">No contributions yet.</p>
-              <Button asChild className="mt-4" size="sm">
-                <Link href="/projects">Browse projects</Link>
-              </Button>
+              <a href="/projects" className="inline-block mt-4 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90">
+                Browse projects
+              </a>
             </Card>
           )}
         </div>
@@ -136,20 +129,17 @@ export default async function DashboardPage() {
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {availableLinks.map((c) => (
-              <Button
+              <a
                 key={c.role}
-                asChild
-                variant="outline"
-                className="h-auto justify-start p-4"
+                href={c.href}
+                className="flex h-auto justify-start gap-3 rounded-lg border border-border p-4 hover:bg-muted"
               >
-                <Link href={c.href} className="flex flex-col items-start gap-2">
-                  <c.icon className="size-5 text-primary" />
-                  <div>
-                    <p className="font-medium text-foreground">{c.label}</p>
-                    <p className="text-xs text-muted-foreground">{c.desc}</p>
-                  </div>
-                </Link>
-              </Button>
+                <c.icon className="size-5 text-primary" />
+                <div>
+                  <p className="font-medium text-foreground">{c.label}</p>
+                  <p className="text-xs text-muted-foreground">{c.desc}</p>
+                </div>
+              </a>
             ))}
           </div>
         </div>

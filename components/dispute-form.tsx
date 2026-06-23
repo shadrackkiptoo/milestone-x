@@ -8,9 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogFooter,
 } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
@@ -54,11 +52,13 @@ export function DisputeForm({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
-          Raise a concern
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger
+        render={
+          <button className="inline-flex items-center justify-center rounded-lg border border-border bg-background px-3 py-1 text-sm font-medium hover:bg-muted">
+            Raise a concern
+          </button>
+        }
+      />
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Raise a concern</DialogTitle>
@@ -84,11 +84,15 @@ export function DisputeForm({
             />
           </div>
         </div>
-        <DialogFooter>
-          <Button onClick={submit} disabled={isPending}>
+        <div className="flex justify-end gap-2 mt-4">
+          <button
+            onClick={submit}
+            disabled={isPending}
+            className="inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+          >
             {isPending ? "Submitting..." : "Submit complaint"}
-          </Button>
-        </DialogFooter>
+          </button>
+        </div>
       </DialogContent>
     </Dialog>
   )

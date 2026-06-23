@@ -97,13 +97,17 @@ export function DonateWidget({
         />
       </div>
 
-      <Button onClick={handleContribute} disabled={isPending} size="lg">
+      <button
+        onClick={handleContribute}
+        disabled={isPending}
+        className="inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+      >
         {isPending
           ? "Processing..."
           : isAuthed
             ? `Contribute $${amount || 0}`
             : "Sign in to contribute"}
-      </Button>
+      </button>
       <p className="text-xs text-muted-foreground">
         Funds are held in escrow and released only as milestones are verified.
       </p>

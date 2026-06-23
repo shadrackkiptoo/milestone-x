@@ -70,15 +70,19 @@ export default async function HomePage() {
               transparency, from donation to delivery.
             </p>
             <div className="flex flex-wrap items-center gap-3">
-              <Button asChild size="lg">
-                <Link href="/projects">
-                  Browse projects
-                  <ArrowRight className="size-4" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link href="/sign-up">Start a project</Link>
-              </Button>
+              <a
+                href="/projects"
+                className="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+              >
+                Browse projects
+                <ArrowRight className="size-4 ml-2" />
+              </a>
+              <a
+                href="/sign-up"
+                className="inline-flex items-center justify-center rounded-lg border border-border bg-background px-6 py-3 text-sm font-medium hover:bg-muted"
+              >
+                Start a project
+              </a>
             </div>
           </div>
 
@@ -122,12 +126,13 @@ export default async function HomePage() {
               Transparent funding for real community impact.
             </p>
           </div>
-          <Button asChild variant="ghost" className="hidden md:inline-flex">
-            <Link href="/projects">
-              View all
-              <ArrowRight className="size-4" />
-            </Link>
-          </Button>
+<a
+             href="/projects"
+             className="inline-flex items-center justify-center rounded-lg border border-border bg-background px-6 py-3 text-sm font-medium hover:bg-muted hidden md:inline-flex"
+           >
+             View all
+             <ArrowRight className="size-4 ml-2" />
+           </a>
         </div>
 
         {featured.length > 0 ? (
@@ -141,9 +146,12 @@ export default async function HomePage() {
             <p className="text-muted-foreground">
               No live projects yet. Be the first to launch one.
             </p>
-            <Button asChild>
-              <Link href="/sign-up">Start a project</Link>
-            </Button>
+<a
+             href="/sign-up"
+             className="inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+           >
+             Start a project
+           </a>
           </Card>
         )}
       </section>
@@ -193,9 +201,12 @@ export default async function HomePage() {
             Whether you give, build, or verify — join a funding platform where
             accountability is the default.
           </p>
-          <Button asChild size="lg" variant="secondary">
-            <Link href="/sign-up">Create your account</Link>
-          </Button>
+<a
+             href="/sign-up"
+             className="inline-flex items-center justify-center rounded-lg border border-primary-foreground/20 bg-primary-foreground/10 px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary-foreground/20"
+           >
+             Create your account
+           </a>
         </Card>
       </section>
 

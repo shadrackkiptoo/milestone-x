@@ -4,7 +4,6 @@ import { getSession } from "@/lib/session"
 import { getAllDisputes, updateDispute } from "@/app/actions/disputes"
 import { SiteHeader } from "@/components/site-header"
 import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { StatusBadge } from "@/components/status-badge"
@@ -20,12 +19,10 @@ export default async function DisputesPage() {
       <SiteHeader user={user} />
       <main className="mx-auto w-full max-w-6xl px-4 py-12">
         <div className="mb-6">
-          <Button asChild variant="ghost" size="sm" className="mb-4">
-            <Link href="/dashboard">
-              <ArrowLeft className="size-4" />
-              Dashboard
-            </Link>
-          </Button>
+          <a href="/dashboard" className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1 mb-4">
+            <ArrowLeft className="size-4" />
+            Dashboard
+          </a>
           <h1 className="text-3xl font-semibold tracking-tight text-foreground">
             Disputes
           </h1>
@@ -34,16 +31,15 @@ export default async function DisputesPage() {
         {disputes.length > 0 ? (
           <div className="grid gap-4">
             {disputes.map((d) => (
-              <Card key={d.id} className="p-6">
+              <Card key={d.id} className="p-4">
                 <div className="flex items-start justify-between">
                   <div>
-                    <p className="font-semibold text-foreground">{d.subject}</p>
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className="font-medium text-foreground">{d.subject}</p>
+                    <p className="text-sm text-muted-foreground line-clamp-1">
                       {d.details}
                     </p>
-                    <p className="mt-2 text-xs text-muted-foreground">
-                      Raised by: {d.raisedByName} •{" "}
-                      {new Date(d.createdAt).toLocaleDateString()}
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      Raised by: {d.raisedByName}
                     </p>
                   </div>
                   <StatusBadge status={d.status} />
@@ -62,23 +58,22 @@ export default async function DisputesPage() {
                       />
                     </div>
                     <div className="flex gap-2">
-                      <Button
+                      <button
                         type="submit"
                         name="status"
                         value="investigating"
-                        size="sm"
+                        className="inline-flex items-center justify-center rounded-lg bg-primary px-3 py-1 text-sm font-medium text-primary-foreground hover:bg-primary/90"
                       >
                         Investigate
-                      </Button>
-                      <Button
+                      </button>
+                      <button
                         type="submit"
                         name="status"
                         value="resolved"
-                        size="sm"
-                        variant="outline"
+                        className="inline-flex items-center justify-center rounded-lg border border-border bg-background px-3 py-1 text-sm font-medium hover:bg-muted"
                       >
                         Resolve
-                      </Button>
+                      </button>
                     </div>
                   </form>
                 )}
