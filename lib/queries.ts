@@ -61,7 +61,7 @@ export async function getMilestoneVerifications(milestoneId: number) {
 }
 
 export async function getPlatformStats() {
-  const [agg] = await db
+  const result = await db
     .select({
       totalProjects: sql<number>`count(*)::int`,
       totalRaised: sql<number>`coalesce(sum(${projects.fundedAmount}), 0)::int`,
@@ -71,20 +71,29 @@ export async function getPlatformStats() {
     .from(projects)
     .where(sql`${projects.status} in ('approved', 'funding', 'completed')`)
 
-  const [milestoneAgg] = await db
+  const agg = result[0] ?? {
+    totalProjects: 0,
+    totalRaised: 0,
+    totalEscrow: 0,
+    totalReleased: 0,
+  }
+
+  const milestoneResult = await db
     .select({
       verified: sql<number>`count(*) filter (where ${milestones.status} in ('approved','released'))::int`,
       total: sql<number>`count(*)::int`,
     })
     .from(milestones)
 
+  const milestoneAgg = milestoneResult[0] ?? { verified: 0, total: 0 }
+
   return {
-    totalProjects: agg?.totalProjects ?? 0,
-    totalRaised: agg?.totalRaised ?? 0,
-    totalEscrow: agg?.totalEscrow ?? 0,
-    totalReleased: agg?.totalReleased ?? 0,
-    verifiedMilestones: milestoneAgg?.verified ?? 0,
-    totalMilestones: milestoneAgg?.total ?? 0,
+    totalProjects: agg.totalProjects ?? 0,
+    totalRaised: agg.totalRaised ?? 0,
+    totalEscrow: agg.totalEscrow ?? 0,
+    totalReleased: agg.totalReleased ?? 0,
+    verifiedMilestones: milestoneAgg.verified ?? 0,
+    totalMilestones: milestoneAgg.total ?? 0,
   }
 }
 
